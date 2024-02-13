@@ -55,6 +55,41 @@
                 $answer.innerHTML = `<p>${res.choices[0].message.content}</p>`
             })
         }
+
+        function appendAnswer(message) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            $answer.appendChild(p);
+        }
+
+        $button.addEventListener('click', e => {
+            e.preventDefault();
+            const contents = $input.value;
+            data.push({
+                "role": "user",
+                "content": contents
+            });
+            $input.value = '';
+
+            chatGPTAPI();
+        });
+
+        function chatGPTAPI() {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+                redirect: 'follow'
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                // 답변을 화면에 추가
+                appendAnswer(res.choices[0].message.content);
+            });
+        }
     </script>
 </body>
 </html>
