@@ -21,7 +21,7 @@ function appendAnswer(message) {
 // 버튼 클릭 시 이벤트 리스너 추가
 $obj_button.addEventListener('click', e => {
     e.preventDefault()
-    const contents = $input.value
+    const contents = $obj_input.value
     // 사용자 입력을 배열에 추가
     data.push({
         "role": "user",
