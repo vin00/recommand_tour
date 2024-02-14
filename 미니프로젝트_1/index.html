@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <form>
+            <input type="text">
+            <button type="submit">질문하기!</button>
+        </form>
+        <div class="answer"></div>
+    </div>
+    <script>
+        // DOM 요소들을 변수에 할당
+        const $obj_input = document.querySelector('.obj-input')
+        const $obj_button = document.querySelector('.obj-button')
+        const $answer = document.querySelector('.answer')
+
+        // 사용자 및 시스템 메시지를 저장하는 배열
+        const data = []
+        data.push({
+            "role": "system",
+            "content": "assistant"
+        })
+
+        // API 요청을 보낼 URL
+        const url = `https://open-api.jejucodingcamp.workers.dev/`
+
+        // 답변을 화면에 추가하는 함수
+        function appendAnswer(message) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            appendAnswer(res.choices[0].message.content);
+        }
+
+        function appendAnswer(message) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            $answer.appendChild(p);
+        }
+
+        // 버튼 클릭 시 이벤트 리스너 추가
+        $obj_button.addEventListener('click', e => {
+            e.preventDefault()
+            const contents = $input.value
+            // 사용자 입력을 배열에 추가
+            data.push({
+                "role": "user",
+                "content": contents
+            })
+            // 입력창 비우기
+            $obj_input.value = ''
+
+            // API 요청 보내기
+            chatGPTAPI()
+        })
+
+        // API 요청 함수
+        function chatGPTAPI() {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+                redirect: 'follow'
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                // 답변 온 것을 화면에 추가하는 함수 호출
+                appendAnswer(res.choices[0].message.content)
+            })
+        }
+    </script>
+</body>
+</html>
