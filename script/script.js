@@ -1,40 +1,77 @@
-// DOM 요소들을 변수에 할당
-const $obj_input = document.querySelector('.obj-input')
-const $obj_button = document.querySelector('.obj-button')
-const $answer = document.querySelector('.answer')
-const $aiboxInput = document.querySelector('.obj-input-Aibox');3
-
-// 사용자 및 시스템 메시지를 저장하는 배열
-const data = []
-
-// API 요청을 보낼 URL
-const url = `https://open-api.jejucodingcamp.workers.dev/`
-
-// 답변을 화면에 추가하는 함수
-function appendAnswer(message) {
-    const p = document.createElement('p');
-    p.textContent = message;
-    $answer.appendChild(p);
-    $aiboxInput.value = message;
-}
-
-// 버튼 클릭 시 이벤트 리스너 추가
-$obj_button.addEventListener('click', e => {
-    e.preventDefault()
-    const contents = $obj_input.value
-    // 사용자 입력을 배열에 추가
-    data.push({
-        "role": "user",
-        "content": contents
-    });
-    // 입력창 비우기
-    $obj_input.value = '';
-
-    // API 요청 보내기
-    chatGPTAPI();
+document.addEventListener('DOMContentLoaded', function() {
+    //홈페이지 로드시 팝업 보이기
+    showPopup();
 });
 
-// API 요청 함수
+function showPopup() {
+    document.getElementById('contPopup').style.display = 'flex';
+}
+
+function closePopup() {
+    document.getElementById('contPopup').style.display = 'none';
+}
+
+const $objbutton = document.querySelector('.obj-button');
+const $objai = document.querySelector('.obj-txt-ai');
+const $lablRegion = document.getElementById('lablRegion');
+const $lablTime = document.getElementById('lablTime');
+const $lablPlace = document.getElementById('lablPlace');
+
+// 모든 input을 하나의 텍스트로 묶어 주기
+let travelInfo;
+
+function collectTravelInfo() {
+    const region = $lablRegion.value;
+    const time = $lablTime.value;
+    const place = $lablPlace.value;
+
+    const rentYes = document.getElementById('radiorent_yes').checked;
+    const rentNo = document.getElementById('radiorent_no').checked;
+    const taxiYes = document.getElementById('radiotaxi_yes').checked;
+    const taxiNO = document.getElementById('radiotaxi_no').checked;
+
+    const rentText = rentYes ? '예' : (rentNo ? '아니오' : '');
+    const taxiText = taxiYes ? '예' : (taxiNO ? '아니오' : '');
+
+    travelInfo = `여행지: ${region}, 일정: ${time}, 가고 싶은 여행지: ${place}, 차 렌트 여부: ${rentText}, 택시 이용 여부: ${taxiText}`;
+
+    console.log(travelInfo);
+}
+
+let data = [];
+data.push({
+    "role": "system",
+    "content": "assistant"
+});
+
+const url = `https://open-api.jejucodingcamp.workers.dev/`;
+
+$objbutton.addEventListener('click', e => {
+    e.preventDefault();
+    collectTravelInfo();
+    data.push({
+        "role": "user",
+        "content": travelInfo
+    });
+
+    chatGPTAPI();
+
+    $lablPlace.value = '';
+    $lablRegion.value = '';
+    $lablTime.value = '';
+    document.getElementById('radiorent_yes').checked = false;
+    document.getElementById('radiorent_no').checked = false;
+    document.getElementById('radiotaxi_yes').checked = false;
+    document.getElementById('radiotaxi_no').checked = false;
+
+    // 기존 데이터를 비워줍니다.
+    data.length = 0;
+    data.push({
+        "role": "system",
+        "content": "assistant"
+    });
+});
+
 function chatGPTAPI() {
     fetch(url, {
         method: 'POST',
@@ -47,11 +84,20 @@ function chatGPTAPI() {
     .then(res => res.json())
     .then(res => {
         console.log(res);
-        // 답변 온 것을 화면에 추가하는 함수 호출
         appendAnswer(res.choices[0].message.content);
-    })
 
-    .catch(error => {
-        console.error('Error:', error)
+        // API 호출 완료 후 기존 데이터를 비워줍니다.
+        data.length = 0;
+        data.push({
+            "role": "system",
+            "content": "assistant"
+        });
     })
+    .catch(error => {
+        console.error('Error from API:', error);
+    });
+}
+
+function appendAnswer(message) {
+    $objai.innerHTML = `<p>${message}</p>`;
 }

@@ -19,6 +19,12 @@ body {
     width: 100%;
 }
 
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 img {
     vertical-align: top;
 }

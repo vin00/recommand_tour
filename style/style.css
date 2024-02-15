@@ -4,8 +4,39 @@
     height: 80px;
     border: 1px solid #d9dbe0;
 }
+
+.cont-popup {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    width: 1206px;
+    height: 1206px;
+    background-image: url(/과제/미니프로젝트_1/images/풍경사진.JPG);
+    background-size: 1206px 1206px;
+    background-position: center;
+    text-align: center;
+    margin-top: 80px;
+    z-index: 999;
+    display: none;
+}
+
+.obj-popup-logo {
+    width: 1046x;
+    height: 424px;
+    margin-top: 67px;
+}
+
+.obj-popup-but {
+    background-color: black;
+    color: #ffffff;
+    font-size: 50px;
+    margin-top: 553px;
+}
+
 .cont-main {
-    margin: 60px 365px auto;
+    margin-top: 60px;
     overflow: hidden;
 }
 
@@ -15,18 +46,18 @@
 	clear:both;
 }
 
-.obj-img-main {
-    float: left;
-    width: 560px;
-    height: 560px;
-    border-radius: 10px;
-    margin-right: 40px;
-}
-
 .obj-txt-title {
     font-size: 32px;
     font-weight: 700;
     line-height: 40px;
+}
+
+.obj-img-main {
+    width: 560px;
+    height: 560px;
+    float: left;
+    border-radius: 10px;
+    margin-right: 40px;
 }
 
 .obj-label {
@@ -69,21 +100,30 @@
 }
 
 .box-check {
+    display: inline-block;
     border: none;
     padding: 0;
     margin-top: 24px;
+    margin-right: 50px;
 }
 
-.cont-section {
+.box-check-no {
+    display: inline-block;
+    border: none;
+    padding: 0;
+    margin-top: 24px;
+    margin-right: 50px;
+}
+
+.box-ai {
     margin-top: 60px;
 }
 
-.obj-input-Aibox {
+.obj-txt-ai {
     box-sizing: border-box;
     width: 1190px;
-    height: 200px;
+    min-height: 200px;
     text-align: center;
-    padding: 88px auto;
     border: 2px solid #d9dbe0;
     border-radius: 10px;
     margin-top: 32px;
