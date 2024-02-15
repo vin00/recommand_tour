@@ -1,9 +1,7 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     //홈페이지 로드시 팝업 보이기
     showPopup();
 });
-
 
 function showPopup() {
     document.getElementById('contPopup').style.display = 'flex';
@@ -12,7 +10,7 @@ function showPopup() {
 function closePopup() {
     document.getElementById('contPopup').style.display = 'none';
 }
-// DOM 요소들을 변수에 할당
+
 const $objbutton = document.querySelector('.obj-button');
 const $objai = document.querySelector('.obj-txt-ai');
 const $lablRegion = document.getElementById('lablRegion');
