@@ -2,6 +2,7 @@
 GPT를 이용여행 추천 서비스
 
 ## WBS
+
 gantt
     title P's Plan
     dateFormat  YYYY-MM-DD
