@@ -13,26 +13,38 @@
     position: fixed;
     width: 1206px;
     height: 1206px;
-    background-image: url(images/풍경사진.JPG);
-    background-size: 1206px 1206px;
-    background-position: center;
+    background-color: #ffffff;
     text-align: center;
     margin-top: 80px;
     z-index: 999;
     display: none;
 }
 
+.obj-popup-back {
+    width: 760px;
+    height: 760px;
+    position: absolute;
+    top: 80px;
+    right: 32%;
+    z-index: 0;
+}
+
 .obj-popup-logo {
-    width: 1046x;
-    height: 424px;
-    margin-top: 67px;
+    display: block;
+    width: 620px;
+    height: 250px;
+    position: relative;
+    top: 127px;
+    z-index: 1;
 }
 
 .obj-popup-but {
+    position: relative;
     background-color: black;
     color: #ffffff;
-    font-size: 50px;
-    margin-top: 553px;
+    font-size: 30px;
+    margin-top: 480px;
+    z-index: 2;
 }
 
 .cont-main {
