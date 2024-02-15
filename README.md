@@ -3,7 +3,7 @@ GPT를 이용여행 추천 서비스
 
 ## WBS
 gantt
-    P's Plan
+    title P's Plan
     dateFormat  YYYY-MM-DD
     section 계획
     프로젝트 구상       :done,    des1, 2024-02-10, 1d
